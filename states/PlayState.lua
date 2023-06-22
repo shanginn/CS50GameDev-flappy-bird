@@ -25,6 +25,7 @@ function PlayState:init()
 
     -- initialize our last recorded Y value for a gap placement to base other gaps off of
     self.lastY = -PIPE_HEIGHT + math.random(80) + 20
+    self.lastSpawnDelay = 2
 end
 
 function PlayState:update(dt)
@@ -32,13 +33,21 @@ function PlayState:update(dt)
     self.timer = self.timer + dt
 
     -- spawn a new pipe pair every second and a half
-    if self.timer > 2 then
+    if self.timer > self.lastSpawnDelay then
         -- modify the last Y coordinate we placed so pipe gaps aren't too far apart
         -- no higher than 10 pixels below the top edge of the screen,
         -- and no lower than a gap length (90 pixels) from the bottom
-        local y = math.max(-PIPE_HEIGHT + 10, 
-            math.min(self.lastY + math.random(-20, 20), VIRTUAL_HEIGHT - 90 - PIPE_HEIGHT))
+        local y = math.max(
+            -PIPE_HEIGHT + 10, 
+            math.min(
+                self.lastY + math.random(-20, 20),
+                VIRTUAL_HEIGHT - 90 - PIPE_HEIGHT
+            )
+        )
+
         self.lastY = y
+
+        self.lastSpawnDelay = math.random(2, 2.5)
 
         -- add a new pipe pair at the end of the screen at our new Y
         table.insert(self.pipePairs, PipePair(y))
@@ -91,7 +100,7 @@ function PlayState:update(dt)
     self.bird:update(dt)
 
     -- reset if we get to the ground
-    if self.bird.y > VIRTUAL_HEIGHT - 15 then
+    if self.bird.y > VIRTUAL_HEIGHT - 15 or self.bird.y < -15 then
         -- sounds['explosion']:play()
         -- sounds['hurt']:play()
 

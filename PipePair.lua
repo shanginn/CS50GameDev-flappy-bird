@@ -1,14 +1,17 @@
 PipePair = Class{}
 
-local GAP_HEIGHT = 90
+local GAP_MIN = 90
+local GAP_MAX = 120
 
 function PipePair:init(y)
 	self.x = VIRTUAL_WIDTH + 32
 	self.y = y
 
+	local gap = math.random(GAP_MIN, GAP_MAX)
+
 	self.pipes = {
 		['upper'] = Pipe('top', self.y),
-		['lower'] = Pipe('bottom', self.y + PIPE_HEIGHT + GAP_HEIGHT)
+		['lower'] = Pipe('bottom', self.y + PIPE_HEIGHT + gap)
 	}
 
 	self.remove = false

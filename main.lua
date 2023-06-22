@@ -29,7 +29,6 @@ local GROUND_SCROLL_SPEED = 60
 local BACKGROUND_LOOPING_POINT = 413
 
 local bird = Bird()
-local pipePairs = {}
 
 local spawnTimer = 0
 
