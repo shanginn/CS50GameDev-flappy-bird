@@ -4,7 +4,7 @@ local GRAVITY = 15
 local ANTI_GRAVITY = 3
 
 function Bird:init()
-    self.image = love.graphics.newImage('bird.png')
+    self.image = love.graphics.newImage('assets/images/bird.png')
     self.width = self.image:getWidth()
     self.height = self.image:getHeight()
 
