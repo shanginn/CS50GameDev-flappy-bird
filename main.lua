@@ -42,6 +42,22 @@ function love.load()
 
     math.randomseed(os.time())
 
+    -- initialize our table of sounds
+    sounds = {
+        ['jump'] = love.audio.newSource('jump.wav', 'static'),
+        ['explosion'] = love.audio.newSource('explosion.wav', 'static'),
+        ['hurt'] = love.audio.newSource('hurt.wav', 'static'),
+        ['score'] = love.audio.newSource('score.wav', 'static'),
+        ['count'] = love.audio.newSource('count.wav', 'static'),
+
+        -- https://freesound.org/people/xsgianni/sounds/388079/
+        ['music'] = love.audio.newSource('marios_way.mp3', 'static')
+    }
+
+    -- kick off music
+    sounds['music']:setLooping(true)
+    sounds['music']:play()
+
     smallFont = love.graphics.newFont('font.ttf', 8)
     mediumFont = love.graphics.newFont('flappy.ttf', 14)
     flappyFont = love.graphics.newFont('flappy.ttf', 28)
